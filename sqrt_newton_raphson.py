@@ -58,7 +58,6 @@ def readInputsAndCompute(input_window, input1_var, input2_var):
         return None
     
     start_time = time.perf_counter()
-    # result = squareRootBinary(x, precision_num_digits)
     result, iterations = squareRootNewtonRaphson(input_number, precision_num_digits)
     end_time = time.perf_counter()
     result_str = f"sqrt({input_number}) = {result:.{precision_num_digits}f}"
@@ -85,7 +84,6 @@ def main():
 
     input_window = tk.Tk()
     input_window.title("Input")
-    # input_window.geometry("350x175")
     input_window.geometry("400x175")
     input_window.eval('tk::PlaceWindow . center')
 
@@ -99,8 +97,6 @@ def main():
     entry2 = tk.Entry(input_window, font=("Arial",14), textvariable = input2_var)
     
     input_window.columnconfigure(0, weight=1)
-    # input_window.columnconfigure(1, weight=1)
-    # input_window.columnconfigure(2, weight=1)
     entry1.grid(row=1, column=0, sticky="nsew", padx=(10,10))
     entry2.grid(row=3, column=0, sticky="nsew", padx=(10,10))
 
