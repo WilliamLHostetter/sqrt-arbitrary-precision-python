@@ -6,8 +6,7 @@ Includes a GUI dialog box to enter the input number and precision.
   <img style="display: block; margin: auto;" src="./images/input-window.png"/>
 </p>
 <br>  
-The output is displayed in scrollable text box that can be highlighted and copied.  
-
+The output is displayed in scrollable text box that can be highlighted and copied.<br>
 <br>
 <p align="center" width="100%">
   <img style="display: block; margin: auto;" src="./images/output-window.png"/>
