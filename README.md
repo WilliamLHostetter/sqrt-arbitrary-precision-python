@@ -1,4 +1,4 @@
-# Square root to n digits of precision
+# Square root to arbitrary precision
 Python implementations of numerical methods to find the square root of an input floating point number to an arbitrary precision.
 
 Includes a GUI dialog box to enter the input number and precision. 
