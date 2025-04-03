@@ -10,6 +10,7 @@ from tkinter import scrolledtext, messagebox
 import decimal
 import time
 
+
 input_number = float(0)
 precision_num_digits = int(0)
 
@@ -50,7 +51,7 @@ def readInputsAndCompute(input_window, input1_var, input2_var):
         assert input_number > 0
         print("Input number =", input_number)
     except Exception :
-        error_msg = "Enter a positive number for x"
+        error_msg = "Enter a positive floating point number for sqrt()"
         messagebox.showerror("Input Error", error_msg)
         return None
     
@@ -59,7 +60,7 @@ def readInputsAndCompute(input_window, input1_var, input2_var):
         assert precision_num_digits >= 0
         print("Input precision number of digits =", precision_num_digits)
     except Exception :
-        error_msg = "Enter a positive integer n for precision"
+        error_msg = "Enter a positive integer for precision"
         messagebox.showerror("Input Error", error_msg)
         return None
     
@@ -83,6 +84,13 @@ def readInputsAndCompute(input_window, input1_var, input2_var):
     output_text_str = result_str + "\n\n" + elapsed_time_str
     scrolledText.insert(tk.INSERT, output_text_str)
     scrolledText.pack(fill=tk.BOTH, expand=True)
+    # Right click menu for copy and select all
+    menu = tk.Menu(scrolledText, tearoff=0)
+    # Menu options
+    menu.add_command(label="Copy", accelerator="Ctrl+C", command=lambda: scrolledText.event_generate("<<Copy>>"))
+    menu.add_command(label="Select All", accelerator="Ctrl+A", command=lambda: scrolledText.event_generate("<<SelectAll>>"))
+    # Make menu pop up on right click event
+    scrolledText.bind("<Button -3>", lambda event: menu.tk_popup(event.x_root, event.y_root))
 
 
 def main():
@@ -106,6 +114,7 @@ def main():
     entry2.grid(row=3, column=0, sticky="nsew", padx=(10,10))
 
     button = tk.Button(input_window, text="Submit", command=lambda: readInputsAndCompute(input_window, input1_var, input2_var))
+    input_window.bind('<Return>', lambda event: readInputsAndCompute(input_window, input1_var, input2_var))
     button.grid(row=5,column=0, pady=(20, 20))
 
     input_window.mainloop()

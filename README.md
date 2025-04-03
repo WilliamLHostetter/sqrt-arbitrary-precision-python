@@ -11,6 +11,9 @@ The output is displayed in scrollable text box that can be highlighted and copie
 <p align="center" width="100%">
   <img style="display: block; margin: auto;" src="./images/output-window.png"/>
 </p>
+<p align="center" width="100%">
+  <img style="display: block; margin: auto;" src="./images/output-window-copy.png"/>
+</p>
 <br>
 
 ## Table of Contents

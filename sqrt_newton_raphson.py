@@ -78,6 +78,13 @@ def readInputsAndCompute(input_window, input1_var, input2_var):
     output_text_str = result_str + "\n\n" + elapsed_time_str + "\n" + iterations_str
     scrolledText.insert(tk.INSERT, output_text_str)
     scrolledText.pack(fill=tk.BOTH, expand=True)
+    # Right click menu for copy and select all
+    menu = tk.Menu(scrolledText, tearoff=0)
+    # Menu options
+    menu.add_command(label="Copy", accelerator="Ctrl+C", command=lambda: scrolledText.event_generate("<<Copy>>"))
+    menu.add_command(label="Select All", accelerator="Ctrl+A", command=lambda: scrolledText.event_generate("<<SelectAll>>"))
+    # Make menu pop up on right click event
+    scrolledText.bind("<Button -3>", lambda event: menu.tk_popup(event.x_root, event.y_root))
 
 
 def main():
@@ -101,6 +108,7 @@ def main():
     entry2.grid(row=3, column=0, sticky="nsew", padx=(10,10))
 
     button = tk.Button(input_window, text="Submit", command=lambda: readInputsAndCompute(input_window, input1_var, input2_var))
+    input_window.bind('<Return>', lambda event: readInputsAndCompute(input_window, input1_var, input2_var))
     button.grid(row=5,column=0, pady=(20, 20))
 
     input_window.mainloop()
