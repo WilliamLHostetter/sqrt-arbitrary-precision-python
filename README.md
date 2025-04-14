@@ -1,4 +1,9 @@
 # Square root to arbitrary precision
+
+<p align="center" width="100%">
+  <img style="display: block; margin: auto;" src="./images/sqrt-digits.svg"/>
+</p>
+
 Python implementations of numerical methods to find the square root of an input floating point number to an arbitrary precision.
 
 Includes a GUI dialog box to enter the input number and precision. 
