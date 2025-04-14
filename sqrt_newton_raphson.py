@@ -8,24 +8,25 @@ displayed in scrollable text box that can be highlighted and copied.
 import tkinter as tk
 from tkinter import scrolledtext, messagebox
 import decimal
+from decimal import Decimal
 import time
 
 
 
-def squareRootNewtonRaphson(input_number, precision_num_digits):
+def squareRootNewtonRaphson(input_number: float, precision_num_digits: int) -> tuple[Decimal, int]:
     '''Function to return the square root of a number using Newton-Raphson's method'''
     decimal_precision = precision_num_digits + len(str(int(input_number))) + 1
     decimal.getcontext().prec = decimal_precision
-    n = decimal.Decimal(input_number)
-    tolerance = decimal.Decimal(10) ** decimal.Decimal(-precision_num_digits)
+    n = Decimal(input_number)
+    tolerance = Decimal(10) ** Decimal(-precision_num_digits)
     # Initial guess of the sqrt(n) as n/2
-    estimate = n/decimal.Decimal(2)
+    estimate = n/Decimal(2)
     # To count the number of iterations to report in output
     iterations = 0
     while True:
         iterations += 1
         # Calculate closer approximation of root
-        root = decimal.Decimal(0.5) * (decimal.Decimal(estimate) + (decimal.Decimal(n) / decimal.Decimal(estimate))) 
+        root = Decimal(0.5) * (Decimal(estimate) + (Decimal(n) / Decimal(estimate))) 
         # Check for closeness 
         if (abs(estimate - root) < tolerance):
             break
@@ -35,7 +36,7 @@ def squareRootNewtonRaphson(input_number, precision_num_digits):
     return result, iterations
 
 
-def readInputsAndCompute(input_window, input1_var, input2_var):
+def readInputsAndCompute(input_window: tk.Tk, input1_var: tk.StringVar, input2_var: tk.StringVar) -> None:
     input_x_str = input1_var.get()    
     input_precision_n_digits_str = input2_var.get()
     
@@ -87,7 +88,7 @@ def readInputsAndCompute(input_window, input1_var, input2_var):
     scrolledText.bind("<Button -3>", lambda event: menu.tk_popup(event.x_root, event.y_root))
 
 
-def main():
+def main() -> None:
 
     input_window = tk.Tk()
     input_window.title("Input")
@@ -108,8 +109,8 @@ def main():
     entry2.grid(row=3, column=0, sticky="nsew", padx=(10,10))
 
     button = tk.Button(input_window, text="Submit", command=lambda: readInputsAndCompute(input_window, input1_var, input2_var))
-    input_window.bind('<Return>', lambda event: readInputsAndCompute(input_window, input1_var, input2_var))
     button.grid(row=5,column=0, pady=(20, 20))
+    input_window.bind('<Return>', lambda event: readInputsAndCompute(input_window, input1_var, input2_var))
 
     input_window.mainloop()
 

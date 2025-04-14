@@ -8,6 +8,7 @@ displayed in scrollable text box that can be highlighted and copied.
 import tkinter as tk
 from tkinter import scrolledtext, messagebox
 import decimal
+from decimal import Decimal
 import time
 
 
@@ -15,21 +16,21 @@ input_number = float(0)
 precision_num_digits = int(0)
 
 
-def f(x):
-    return(x*x - decimal.Decimal(input_number))
+def f(x: float) -> Decimal:
+    return(x*x - Decimal(input_number))
 
 
-def squareRootBisection(a, b):
+def squareRootBisection(a: float, b: float) -> Decimal:
     decimal_precision = precision_num_digits + len(str(int(input_number))) + 1
     decimal.getcontext().prec = decimal_precision
-    a = decimal.Decimal(a)
-    b = decimal.Decimal(b)
-    tolerance = decimal.Decimal(10) ** decimal.Decimal(-precision_num_digits)
+    a = Decimal(a)
+    b = Decimal(b)
+    tolerance = Decimal(10) ** Decimal(-precision_num_digits)
     if f(a)*f(b) > 0:
         return None #end function, no root.
     i=0
-    while decimal.Decimal(0.5)*(b - a) > tolerance:
-        midpoint = decimal.Decimal(0.5)*(a + b)
+    while Decimal(0.5)*(b - a) > tolerance:
+        midpoint = Decimal(0.5)*(a + b)
         f_midpoint = f(midpoint)
         if f_midpoint == 0:
             break # The midpoint is the x-intercept/root.
@@ -41,7 +42,7 @@ def squareRootBisection(a, b):
     return(result)
 
 
-def readInputsAndCompute(input_window, input1_var, input2_var):
+def readInputsAndCompute(input_window: tk.Tk, input1_var: tk.StringVar, input2_var: tk.StringVar) -> None:
     global input_number, precision_num_digits
     input_x_str = input1_var.get()    
     input_precision_n_digits_str = input2_var.get()
@@ -93,7 +94,7 @@ def readInputsAndCompute(input_window, input1_var, input2_var):
     scrolledText.bind("<Button -3>", lambda event: menu.tk_popup(event.x_root, event.y_root))
 
 
-def main():
+def main() -> None:
 
     input_window = tk.Tk()
     input_window.title("Input")
@@ -103,7 +104,7 @@ def main():
     # declaring string variable for storing 2 inputs
     input1_var=tk.StringVar()
     input2_var=tk.StringVar()
-
+    
     tk.Label(input_window, text="Enter positive floating point number for sqrt()", font=("Segoe UI", 14)).grid(row=0)
     tk.Label(input_window, text="Enter number of digits for precision", font=("Segoe UI", 14)).grid(row=2)
     entry1 = tk.Entry(input_window, font=("Arial",14), textvariable = input1_var)
@@ -114,9 +115,9 @@ def main():
     entry2.grid(row=3, column=0, sticky="nsew", padx=(10,10))
 
     button = tk.Button(input_window, text="Submit", command=lambda: readInputsAndCompute(input_window, input1_var, input2_var))
-    input_window.bind('<Return>', lambda event: readInputsAndCompute(input_window, input1_var, input2_var))
     button.grid(row=5,column=0, pady=(20, 20))
-
+    input_window.bind('<Return>', lambda event: readInputsAndCompute(input_window, input1_var, input2_var))
+    
     input_window.mainloop()
 
 
