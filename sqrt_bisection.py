@@ -2,7 +2,10 @@
 Python implementation of the Bisection method to find square root of an input 
 floating point number to an arbitrary precision.
 Includes a GUI dialog box to enter the input number and precision. The output is 
-displayed in scrollable text box that can be highlighted and copied. 
+displayed in scrollable text box that can be highlighted and copied.
+
+For reference, for x=2 and n=100, the sqrt(2) to the 100th decimal place is
+sqrt(2) = 1.4142135623730950488016887242096980785696718753769480731766797379907324784621070388503875343276415727
 '''
 
 import tkinter as tk
@@ -12,38 +15,34 @@ from decimal import Decimal
 import time
 
 
-input_number = float(0)
-precision_num_digits = int(0)
-
-
-def f(x: float) -> Decimal:
+def f(x: float, input_number: float) -> Decimal:
     return(x*x - Decimal(input_number))
 
 
-def squareRootBisection(a: float, b: float) -> Decimal:
+def squareRootBisection(input_number: float, precision_num_digits: int, a: float, b: float) -> Decimal:
     decimal_precision = precision_num_digits + len(str(int(input_number))) + 1
     decimal.getcontext().prec = decimal_precision
     a = Decimal(a)
     b = Decimal(b)
-    tolerance = Decimal(10) ** Decimal(-precision_num_digits)
-    if f(a)*f(b) > 0:
+    tolerance = Decimal(10) ** Decimal(-precision_num_digits-1)
+    if f(a, input_number)*f(b, input_number) > 0:
         return None #end function, no root.
     i=0
     while Decimal(0.5)*(b - a) > tolerance:
         midpoint = Decimal(0.5)*(a + b)
-        f_midpoint = f(midpoint)
+        f_midpoint = f(midpoint, input_number)
         if f_midpoint == 0:
             break # The midpoint is the x-intercept/root.
-        elif f(a)*f_midpoint < 0: # Increasing but below 0 case
+        elif f(a, input_number)*f_midpoint < 0: # Increasing but below 0 case
             b = midpoint
         else:
             a = midpoint
+    # print("midpoint =", midpoint)
     result = round(midpoint, precision_num_digits)
     return(result)
 
 
 def readInputsAndCompute(input_window: tk.Tk, input1_var: tk.StringVar, input2_var: tk.StringVar) -> None:
-    global input_number, precision_num_digits
     input_x_str = input1_var.get()    
     input_precision_n_digits_str = input2_var.get()
     
@@ -66,7 +65,8 @@ def readInputsAndCompute(input_window: tk.Tk, input1_var: tk.StringVar, input2_v
         return None
     
     start_time = time.perf_counter()
-    result = squareRootBisection(a=0.0, b=input_number)
+    # print(f"squareRootBisection(input_number={input_number}, precision_num_digits={precision_num_digits}, a=0.0, b={input_number})")
+    result = squareRootBisection(input_number=input_number, precision_num_digits=precision_num_digits, a=0.0, b=input_number)
     end_time = time.perf_counter()
     result_str = f"sqrt({input_number}) = {result:.{precision_num_digits}f}"
     print(result_str)
