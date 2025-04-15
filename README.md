@@ -33,7 +33,12 @@ Python 3 (tested in version 3.12.2)
 
 <a name="prerequisites-heading"></a>
 ## Dependencies
-There are no external dependencies needed for these routines. They only use built-in Python modules and packages, such as the [tkinter](https://docs.python.org/3/library/tkinter.html) package and the [decimal](https://docs.python.org/3/library/decimal.html) module.
+There are no external dependencies needed for these routines. They only use built-in Python modules and packages, such as the [tkinter](https://docs.python.org/3/library/tkinter.html) package and the [decimal](https://docs.python.org/3/library/decimal.html) module.  
+
+The `tests` folder contains unit tests for the Bisection and Newton–Raphson methods. These tests use the pytest framework, which can be installed with pip using the following command:
+```console
+pip install pytest
+```
 
 <a name="usage-heading"></a>
 ## Usage
