@@ -8,7 +8,7 @@ from decimal import Decimal
 sqrt_2_str = "1.4142135623730950488016887242096980785696718753769480731766797379907324784621070388503875343276415727"
 
 
-decimal.getcontext().prec = 1003
+decimal.getcontext().prec = 103
 parameters_list =  [(2.0, 10, 0.0, 2.0, round(Decimal(sqrt_2_str), 10)), 
                     (2.0, 50, 0.0, 2.0, round(Decimal(sqrt_2_str), 50)), 
                     (2.0, 100, 0.0, 2.0, round(Decimal(sqrt_2_str), 100)),]
